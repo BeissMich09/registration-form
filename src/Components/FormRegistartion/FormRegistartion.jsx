@@ -1,103 +1,320 @@
+import {
+  Button,
+  CssBaseline,
+  Grid,
+  makeStyles,
+  Paper,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
+import ModalWindow from "./ModalWindow";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100vh",
+    overflow: "hidden",
+  },
+  image: {
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
+  title: {
+    marginTop: "25px",
+    marginBottom: "15px",
+  },
+  paper: {
+    margin: theme.spacing(10, 10),
+    height: "84%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
+  form_email: {
+    width: "80%",
+    height: "102px",
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  form_password: {
+    width: "80%",
+    height: "169px",
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  form_full_name: {
+    width: "80%",
+    height: "300px",
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+
+  text_error: {
+    color: "red",
+  },
+  passwords: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+
+  button: {
+    background: "#d3b6f3",
+  },
+}));
 
 function SignUp(props) {
+  const classes = useStyles();
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
+    register: registerFullName,
+    handleSubmit: handleSubmitFullName,
+    formState: { errors: errorsFullName },
   } = useForm();
-  const onSubmit = (data) => props.getInput(data);
-
-  let congratulationsWindow = () => {
-    if (errors.length === 0) {
-      console.log(
-        `Поздравляем с успешной регистрацией, ${watch("firstName")}!`
-      );
-    }
+  const onSubmitFullName = (data) => {
+    props.getInputFirstStep(data);
   };
-  console.log(errors);
+
+  const {
+    register: registerEmail,
+    handleSubmit: handleSubmitEmail,
+    formState: { errors: errorsEmail },
+  } = useForm();
+  const onSubmitEmail = (data) => {
+    props.getInputFirstStep(data);
+  };
+  const {
+    watch: watchPassword,
+    register: registerPassword,
+    handleSubmit: handleSubmitPassword,
+    formState: { errors: errorsPassword },
+  } = useForm();
+  const onSubmitPassword = (data) => {
+    props.getInputFirstStep(data);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        {...register("firstName", {
-          required: true,
-          minLength: 3,
-          pattern: /^[A-Za-z]+$/i,
-        })}
-      />
-      {console.log(watch("firstName"))}
-      {errors.firstName !== undefined &&
-        errors.firstName.type === "required" && <p>First name is required.</p>}
-      {errors.firstName !== undefined &&
-        errors.firstName.type === "minLength" && <p>Minimum of 3 symbols.</p>}
-      {errors.firstName !== undefined &&
-        errors.firstName.type === "pattern" && (
-          <p>Latin letters, without numbers. </p>
-        )}
-      <input
-        {...register("lastName", {
-          required: true,
-          minLength: 3,
-          pattern: /^[A-Za-z]+$/i,
-        })}
-      />
-      {errors.lastName !== undefined && errors.lastName.type === "required" && (
-        <p>First name is required.</p>
-      )}
-      {errors.lastName !== undefined &&
-        errors.lastName.type === "minLength" && <p>Minimum of 3 symbols.</p>}
-      {errors.lastName !== undefined && errors.lastName.type === "pattern" && (
-        <p>Latin letters, without numbers. </p>
-      )}
-      <input
-        {...register("patronymic", {
-          required: true,
-          minLength: 3,
-          pattern: /^[A-Za-z]+$/i,
-        })}
-      />
-      {errors.patronymic !== undefined &&
-        errors.patronymic.type === "required" && <p>First name is required.</p>}
-      {errors.patronymic !== undefined &&
-        errors.patronymic.type === "minLength" && <p>Minimum of 3 symbols.</p>}
-      {errors.patronymic !== undefined &&
-        errors.patronymic.type === "pattern" && (
-          <p>Latin letters, without numbers. </p>
-        )}
-      <input type="date" {...register("birthday", { required: true })} />
-      {errors.birthday && <p>Birthday name is required.</p>}
-      <input
-        {...register("email", {
-          required: true,
-          pattern: /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
-        })}
-      />
-      {errors.email !== undefined && errors.email.type === "required" && (
-        <p>Email name is required.</p>
-      )}
-      {errors.email !== undefined && errors.email.type === "pattern" && (
-        <p>Wrong email format. Correct format: ivaninvaniv@mail.ru</p>
-      )}
-      <input
-        type="password"
-        {...register("password", { required: true, minLength: 6 })}
-      />
-      {errors.password && <p>Email name is required.</p>}
-      <input
-        type="password"
-        {...register("repassword", { required: true, minLength: 6 })}
-      />
-      {watch("repassword") !== watch("password") && <p>Пароли не совпадают!</p>}
-      <input
-        onClick={() => {
-          congratulationsWindow();
-        }}
-        type="submit"
-        value="submit"
-      />
-    </form>
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Typography className={classes.title} component="h1" variant="h5">
+            Registration
+          </Typography>
+          <form
+            key="1"
+            className={classes.form_full_name}
+            onSubmit={handleSubmitFullName(onSubmitFullName)}
+          >
+            <TextField
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={errorsFullName.firstName}
+              variant="outlined"
+              label={
+                errorsFullName.firstName &&
+                errorsFullName.firstName.type === "required"
+                  ? "First name is required"
+                  : errorsFullName.firstName &&
+                    errorsFullName.firstName.type === "minLength"
+                  ? "Minimum of 3 symbols"
+                  : errorsFullName.firstName &&
+                    errorsFullName.firstName.type === "pattern"
+                  ? "Latin, not a number"
+                  : "First Name"
+              }
+              {...registerFullName("firstName", {
+                required: true,
+                minLength: 3,
+                pattern: /^[A-Za-z]+$/i,
+              })}
+            />
+
+            <TextField
+              error={errorsFullName.lastName}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label={
+                errorsFullName.lastName &&
+                errorsFullName.lastName.type === "required"
+                  ? "Last name is required"
+                  : errorsFullName.lastName &&
+                    errorsFullName.lastName.type === "minLength"
+                  ? "Minimum of 3 symbols"
+                  : errorsFullName.lastName &&
+                    errorsFullName.lastName.type === "pattern"
+                  ? "Latin, not a number"
+                  : "Last Name"
+              }
+              {...registerFullName("lastName", {
+                required: true,
+                minLength: 3,
+                pattern: /^[A-Za-z]+$/i,
+              })}
+            />
+            <TextField
+              error={errorsFullName.patronymic}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label={
+                errorsFullName.patronymic &&
+                errorsFullName.patronymic.type === "required"
+                  ? "Patronymic is required"
+                  : errorsFullName.patronymic &&
+                    errorsFullName.patronymic.type === "minLength"
+                  ? "Minimum of 3 symbols"
+                  : errorsFullName.patronymic &&
+                    errorsFullName.patronymic.type === "pattern"
+                  ? "Latin, not a number"
+                  : "Patronymic"
+              }
+              {...registerFullName("patronymic", {
+                required: true,
+                minLength: 3,
+                pattern: /^[A-Za-z]+$/i,
+              })}
+            />
+
+            <TextField
+              label={
+                errorsFullName.birthday &&
+                errorsFullName.birthday.type === "required"
+                  ? "Birthday is required"
+                  : "Birthday"
+              }
+              error={errorsFullName.birthday}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              type="date"
+              {...registerFullName("birthday", { required: true })}
+            />
+            <Button className={classes.button} type="submit" value="submit">
+              Next
+            </Button>
+          </form>
+          {props.registerData && Object.keys(props.registerData).length > 3 ? (
+            <form
+              className={classes.form_email}
+              onSubmit={handleSubmitEmail(onSubmitEmail)}
+              key="2"
+            >
+              <TextField
+                error={errorsEmail.email}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                label={
+                  errorsEmail.email && errorsEmail.email.type === "required"
+                    ? "Email is required"
+                    : errorsEmail.email && errorsEmail.email.type === "pattern"
+                    ? "Wrong email format"
+                    : "Email"
+                }
+                {...registerEmail("email", {
+                  required: true,
+                  pattern: /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
+                })}
+              />
+              <Button className={classes.button} type="submit" value="submit">
+                Next
+              </Button>
+            </form>
+          ) : null}
+          {props.registerData && Object.keys(props.registerData).length > 4 ? (
+            <form
+              key="3"
+              onSubmit={handleSubmitPassword(onSubmitPassword)}
+              className={classes.form_password}
+            >
+              <TextField
+                error={errorsPassword.password}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                label={
+                  errorsPassword.password &&
+                  errorsPassword.password.type === "required"
+                    ? "Password is required"
+                    : errorsPassword.password &&
+                      errorsPassword.password.type === "minLength"
+                    ? "Min 6 simbols"
+                    : "Password"
+                }
+                type="password"
+                {...registerPassword("password", {
+                  required: true,
+                  minLength: 6,
+                })}
+              />
+
+              <TextField
+                error={
+                  errorsPassword.repassword ||
+                  watchPassword("repassword") !== watchPassword("password")
+                }
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                label={
+                  errorsPassword.repassword &&
+                  errorsPassword.repassword.type === "required"
+                    ? "Confirm is required"
+                    : errorsPassword.repassword &&
+                      errorsPassword.repassword.type === "minLength"
+                    ? "Min 6 simbols"
+                    : watchPassword("repassword") !== watchPassword("password")
+                    ? "Пароли не совпадают!"
+                    : "Confirm password"
+                }
+                type="password"
+                {...registerPassword("repassword", {
+                  required: true,
+                  minLength: 6,
+                })}
+              />
+              <Button
+                disabled={
+                  watchPassword("repassword") !== watchPassword("password")
+                    ? true
+                    : false
+                }
+                className={classes.button}
+                type="submit"
+                value="submit"
+              >
+                Sign Up
+              </Button>
+            </form>
+          ) : null}
+          {props.registerData &&
+          Object.keys(props.registerData).length === 7 ? (
+            <ModalWindow registerData={props.registerData} />
+          ) : null}
+        </div>
+      </Grid>
+    </Grid>
   );
 }
 
