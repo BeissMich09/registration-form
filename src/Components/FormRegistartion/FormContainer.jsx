@@ -6,7 +6,6 @@ import style from "./FormContainer.module.css";
 
 class FormContainer extends React.Component {
   render() {
-    console.log(this.props.registerData);
     return (
       <div className={style.parent}>
         <SignUp
@@ -19,7 +18,6 @@ class FormContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-  console.log(state);
   return { registerData: state.inputsReducer.registerData };
 };
 export default connect(mapStateToProps, { getInputFirstStep })(FormContainer);

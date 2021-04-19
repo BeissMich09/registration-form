@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "15px",
   },
   paper: {
-    margin: theme.spacing(10, 10),
+    margin: theme.spacing(3, 10),
     height: "84%",
     display: "flex",
     flexDirection: "column",
@@ -36,23 +36,18 @@ const useStyles = makeStyles((theme) => ({
 
   form_email: {
     width: "80%",
-    height: "102px",
-    marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   },
   form_password: {
     width: "80%",
-    height: "169px",
-    marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   },
   form_full_name: {
     width: "80%",
-    height: "300px",
     marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
@@ -69,9 +64,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
   },
+  full_name: {
+    marginTop: "15px",
+  },
 
   button: {
     background: "#d3b6f3",
+    marginTop: "15px",
   },
 }));
 
@@ -144,6 +143,7 @@ function SignUp(props) {
             />
 
             <TextField
+              className={classes.full_name}
               error={errorsFullName.lastName}
               variant="outlined"
               InputLabelProps={{
@@ -168,6 +168,7 @@ function SignUp(props) {
               })}
             />
             <TextField
+              className={classes.full_name}
               error={errorsFullName.patronymic}
               variant="outlined"
               InputLabelProps={{
@@ -193,6 +194,7 @@ function SignUp(props) {
             />
 
             <TextField
+              className={classes.full_name}
               label={
                 errorsFullName.birthday &&
                 errorsFullName.birthday.type === "required"
@@ -207,9 +209,12 @@ function SignUp(props) {
               type="date"
               {...registerFullName("birthday", { required: true })}
             />
-            <Button className={classes.button} type="submit" value="submit">
-              Next
-            </Button>
+            {props.registerData &&
+            Object.keys(props.registerData).length > 3 ? null : (
+              <Button className={classes.button} type="submit" value="submit">
+                Next
+              </Button>
+            )}
           </form>
           {props.registerData && Object.keys(props.registerData).length > 3 ? (
             <form
@@ -218,6 +223,7 @@ function SignUp(props) {
               key="2"
             >
               <TextField
+                className={classes.full_name}
                 error={errorsEmail.email}
                 InputLabelProps={{
                   shrink: true,
@@ -235,9 +241,12 @@ function SignUp(props) {
                   pattern: /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
                 })}
               />
-              <Button className={classes.button} type="submit" value="submit">
-                Next
-              </Button>
+              {props.registerData &&
+              Object.keys(props.registerData).length > 4 ? null : (
+                <Button className={classes.button} type="submit" value="submit">
+                  Next
+                </Button>
+              )}
             </form>
           ) : null}
           {props.registerData && Object.keys(props.registerData).length > 4 ? (
@@ -247,6 +256,7 @@ function SignUp(props) {
               className={classes.form_password}
             >
               <TextField
+                className={classes.full_name}
                 error={errorsPassword.password}
                 InputLabelProps={{
                   shrink: true,
@@ -269,6 +279,7 @@ function SignUp(props) {
               />
 
               <TextField
+                className={classes.full_name}
                 error={
                   errorsPassword.repassword ||
                   watchPassword("repassword") !== watchPassword("password")
