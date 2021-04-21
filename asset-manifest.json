@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/registration-form/static/css/main.bb973b98.chunk.css",
-    "main.js": "/registration-form/static/js/main.6c1cd7d1.chunk.js",
-    "main.js.map": "/registration-form/static/js/main.6c1cd7d1.chunk.js.map",
+    "main.js": "/registration-form/static/js/main.a094ef20.chunk.js",
+    "main.js.map": "/registration-form/static/js/main.a094ef20.chunk.js.map",
     "runtime-main.js": "/registration-form/static/js/runtime-main.c4a74925.js",
     "runtime-main.js.map": "/registration-form/static/js/runtime-main.c4a74925.js.map",
     "static/js/2.e95cf04c.chunk.js": "/registration-form/static/js/2.e95cf04c.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.c4a74925.js",
     "static/js/2.e95cf04c.chunk.js",
     "static/css/main.bb973b98.chunk.css",
-    "static/js/main.6c1cd7d1.chunk.js"
+    "static/js/main.a094ef20.chunk.js"
   ]
 }
