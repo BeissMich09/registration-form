@@ -112,110 +112,111 @@ function SignUp(props) {
           <Typography className={classes.title} component="h1" variant="h5">
             Registration
           </Typography>
-          <form
-            key="1"
-            className={classes.form_full_name}
-            onSubmit={handleSubmitFullName(onSubmitFullName)}
-          >
-            <TextField
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={errorsFullName.firstName}
-              variant="outlined"
-              label={
-                errorsFullName.firstName &&
-                errorsFullName.firstName.type === "required"
-                  ? "First name is required"
-                  : errorsFullName.firstName &&
-                    errorsFullName.firstName.type === "minLength"
-                  ? "Minimum of 3 symbols"
-                  : errorsFullName.firstName &&
-                    errorsFullName.firstName.type === "pattern"
-                  ? "Latin, not a number"
-                  : "First Name"
-              }
-              {...registerFullName("firstName", {
-                required: true,
-                minLength: 3,
-                pattern: /^[A-Za-z]+$/i,
-              })}
-            />
+          {props.registerData &&
+          Object.keys(props.registerData).length > 3 ? null : (
+            <form
+              key="1"
+              className={classes.form_full_name}
+              onSubmit={handleSubmitFullName(onSubmitFullName)}
+            >
+              <TextField
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={errorsFullName.firstName}
+                variant="outlined"
+                label={
+                  errorsFullName.firstName &&
+                  errorsFullName.firstName.type === "required"
+                    ? "First name is required"
+                    : errorsFullName.firstName &&
+                      errorsFullName.firstName.type === "minLength"
+                    ? "Minimum of 3 symbols"
+                    : errorsFullName.firstName &&
+                      errorsFullName.firstName.type === "pattern"
+                    ? "Latin, not a number"
+                    : "First Name"
+                }
+                {...registerFullName("firstName", {
+                  required: true,
+                  minLength: 3,
+                  pattern: /^[A-Za-z]+$/i,
+                })}
+              />
 
-            <TextField
-              className={classes.full_name}
-              error={errorsFullName.lastName}
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              label={
-                errorsFullName.lastName &&
-                errorsFullName.lastName.type === "required"
-                  ? "Last name is required"
-                  : errorsFullName.lastName &&
-                    errorsFullName.lastName.type === "minLength"
-                  ? "Minimum of 3 symbols"
-                  : errorsFullName.lastName &&
-                    errorsFullName.lastName.type === "pattern"
-                  ? "Latin, not a number"
-                  : "Last Name"
-              }
-              {...registerFullName("lastName", {
-                required: true,
-                minLength: 3,
-                pattern: /^[A-Za-z]+$/i,
-              })}
-            />
-            <TextField
-              className={classes.full_name}
-              error={errorsFullName.patronymic}
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              label={
-                errorsFullName.patronymic &&
-                errorsFullName.patronymic.type === "required"
-                  ? "Patronymic is required"
-                  : errorsFullName.patronymic &&
-                    errorsFullName.patronymic.type === "minLength"
-                  ? "Minimum of 3 symbols"
-                  : errorsFullName.patronymic &&
-                    errorsFullName.patronymic.type === "pattern"
-                  ? "Latin, not a number"
-                  : "Patronymic"
-              }
-              {...registerFullName("patronymic", {
-                required: true,
-                minLength: 3,
-                pattern: /^[A-Za-z]+$/i,
-              })}
-            />
+              <TextField
+                className={classes.full_name}
+                error={errorsFullName.lastName}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                label={
+                  errorsFullName.lastName &&
+                  errorsFullName.lastName.type === "required"
+                    ? "Last name is required"
+                    : errorsFullName.lastName &&
+                      errorsFullName.lastName.type === "minLength"
+                    ? "Minimum of 3 symbols"
+                    : errorsFullName.lastName &&
+                      errorsFullName.lastName.type === "pattern"
+                    ? "Latin, not a number"
+                    : "Last Name"
+                }
+                {...registerFullName("lastName", {
+                  required: true,
+                  minLength: 3,
+                  pattern: /^[A-Za-z]+$/i,
+                })}
+              />
+              <TextField
+                className={classes.full_name}
+                error={errorsFullName.patronymic}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                label={
+                  errorsFullName.patronymic &&
+                  errorsFullName.patronymic.type === "required"
+                    ? "Patronymic is required"
+                    : errorsFullName.patronymic &&
+                      errorsFullName.patronymic.type === "minLength"
+                    ? "Minimum of 3 symbols"
+                    : errorsFullName.patronymic &&
+                      errorsFullName.patronymic.type === "pattern"
+                    ? "Latin, not a number"
+                    : "Patronymic"
+                }
+                {...registerFullName("patronymic", {
+                  required: true,
+                  minLength: 3,
+                  pattern: /^[A-Za-z]+$/i,
+                })}
+              />
 
-            <TextField
-              className={classes.full_name}
-              label={
-                errorsFullName.birthday &&
-                errorsFullName.birthday.type === "required"
-                  ? "Birthday is required"
-                  : "Birthday"
-              }
-              error={errorsFullName.birthday}
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              type="date"
-              {...registerFullName("birthday", { required: true })}
-            />
-            {props.registerData &&
-            Object.keys(props.registerData).length > 3 ? null : (
+              <TextField
+                className={classes.full_name}
+                label={
+                  errorsFullName.birthday &&
+                  errorsFullName.birthday.type === "required"
+                    ? "Birthday is required"
+                    : "Birthday"
+                }
+                error={errorsFullName.birthday}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                type="date"
+                {...registerFullName("birthday", { required: true })}
+              />
+
               <Button className={classes.button} type="submit" value="submit">
                 Next
               </Button>
-            )}
-          </form>
+            </form>
+          )}
           {props.registerData && Object.keys(props.registerData).length > 3 ? (
             <form
               className={classes.form_email}
