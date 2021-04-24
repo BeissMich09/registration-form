@@ -7,10 +7,9 @@ const initialState = {
 const inputsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_INPUT:
-      let obj = Object.assign(state.registerData, action.value);
       return {
         ...state,
-        registerData: obj,
+        registerData: Object.assign(action.value, state.registerData),
       };
     default:
       return state;

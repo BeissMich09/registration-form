@@ -217,7 +217,8 @@ function SignUp(props) {
               </Button>
             </form>
           )}
-          {props.registerData && Object.keys(props.registerData).length > 3 ? (
+          {props.registerData &&
+          Object.keys(props.registerData).length === 4 ? (
             <form
               className={classes.form_email}
               onSubmit={handleSubmitEmail(onSubmitEmail)}
